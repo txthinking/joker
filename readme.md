@@ -1,4 +1,4 @@
-# Mr.2
+# Joker
 
 Joker can help you run command in background, view running command list and stop it.
 
