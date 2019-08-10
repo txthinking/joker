@@ -16,6 +16,7 @@ Download [joker](https://github.com/txthinking/mr2/releases/download/v20190810/j
     $ joker brook server -l :9999 -p password
     $ joker list
     $ joker stop <pid>
+    $ joker log <pid>
 
 ## License
 
