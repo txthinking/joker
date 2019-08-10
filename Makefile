@@ -1,7 +1,6 @@
 SRC = $(wildcard *.c)
 SRC += $(wildcard lib/sds/*.c)
 SRC += $(wildcard lib/str-starts-with.c/src/*.c)
-SRC += $(wildcard lib/vec/src/*.c)
 OBJS = $(SRC:.c=.o)
 CFLAGS = -Ilib -Wall
 

@@ -4,6 +4,3 @@
 [submodule "lib/sds"]
 	path = lib/sds
 	url = https://github.com/antirez/sds
-[submodule "lib/vec"]
-	path = lib/vec
-	url = https://github.com/rxi/vec

@@ -6,8 +6,6 @@ void help();
 struct Cmd {
     sds command;
     sds name;
-    int argc;
-    vec_str_t argv;
     pid_t pid;
 };
 
@@ -17,5 +15,6 @@ void free_cmd(struct Cmd *r);
 void list_add(struct Cmd *r, sds *e);
 void list_del(struct Cmd *r, sds *e);
 void list(sds *e);
+void log(int pid, sds *e);
 
 #endif

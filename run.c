@@ -23,19 +23,9 @@ void run(struct Cmd *r, sds *e)
     }
     if (pid == 0){
         prctl(PR_SET_PDEATHSIG, SIGHUP);
-        char *a[(*r).argc+1];
-        int i = 0;
-        char *s = NULL;
-        vec_foreach(&((*r).argv), s, i){
-            a[i] = (char*)malloc(strlen(s) + 1);
-            a[i] = strcpy(a[i], s);
-        }
-        a[i+1] = NULL;
-        execvp((*r).name, a);
-        i=0;
-        for(;i<(*r).argc;i++){
-            free(a[i]);
-        }
+        sds s1 = sdsnew("");
+        s1 = sdscatprintf(s1, "%s >> /tmp/joker_%d 2>&1", (*r).command, getpid());
+        execlp("/bin/sh", "/bin/sh", "-c", s1, NULL);
     }
     if (pid > 0){
         (*r).pid = pid;
@@ -48,9 +38,11 @@ void run(struct Cmd *r, sds *e)
         }
         waitpid(pid, 0, 0);
         list_del(r, &e);
-        perror(e);
-        sds_free(e);
-        return;
+        if(strcmp(e, "") != 0){
+            perror(e);
+            sds_free(e);
+            return;
+        }
     }
 }
 

@@ -13,15 +13,18 @@ void make_cmd(struct Cmd *r, int argc, char *argv[])
 {
     (*r).command = sdsempty();
     (*r).name = sdsempty();
-    (*r).argc = argc-1;
-    vec_init(&((*r).argv));
     (*r).pid = 0;
     int i = 1;
     for(;i<argc;i++){
-        vec_push(&((*r).argv), argv[i]);
         if(i == 1){
-            (*r).name = sdscat((*r).name, argv[i]);
             (*r).command = sdscat((*r).command, argv[i]);
+            char *s = strrchr(argv[i], '/');
+            if (s != NULL){
+                (*r).name = sdscat((*r).name, s+1);
+            }
+            if (s == NULL){
+                (*r).name = sdscat((*r).name, argv[i]);
+            }
             continue;
         }
         (*r).command = sdscat((*r).command, " ");
@@ -31,7 +34,5 @@ void make_cmd(struct Cmd *r, int argc, char *argv[])
 
 void free_cmd(struct Cmd *r)
 {
-    sdsfree((*r).name);
     sdsfree((*r).command);
-    vec_deinit(&((*r).argv));
 }

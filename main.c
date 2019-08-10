@@ -15,6 +15,7 @@ void help()
     printf("    <command>   run your command\n");
     printf("    list        show running command list\n");
     printf("    stop <pid>  stop a command\n");
+    printf("    log <pid>   view log of command\n");
     printf("    help        show help\n");
     printf("    version     show version\n\n");
 }
@@ -54,6 +55,21 @@ int main(int argc, char *argv[])
             printf("%s\n", "stop failed");
             return 0;
         }
+        return 0;
+    }
+    if(argc == 3 && strcmp(argv[1], "log") == 0){
+        int pid = atoi(argv[2]);
+        if(pid == 0){
+            return 0;
+        }
+        sds e = sdsempty();
+        log(pid, &e);
+        if(strcmp(e, "") != 0){
+            printf("%s\n", e);
+            sdsfree(e);
+            return 0;
+        }
+        sdsfree(e);
         return 0;
     }
 
