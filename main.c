@@ -5,7 +5,6 @@
 #include <sys/types.h>
 #include <sys/prctl.h>
 #include <signal.h>
-#include "vec/src/vec.h"
 #include "sds/sds.h"
 #include "joker.h"
 

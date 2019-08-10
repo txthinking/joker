@@ -6,7 +6,6 @@
 #include <sys/prctl.h>
 #include <signal.h>
 #include "str-starts-with.c/src/str-starts-with.h"
-#include "vec/src/vec.h"
 #include "sds/sds.h"
 #include "joker.h"
 
