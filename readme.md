@@ -4,7 +4,7 @@ Joker can help you run command in background, view running command list and stop
 
 ### Install
 
-Download [joker](https://github.com/txthinking/mr2/releases/download/v20190810/joker)
+Download [joker](https://github.com/txthinking/joker/releases/download/v20190812/joker)
 
 ### Source
 
