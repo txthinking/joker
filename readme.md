@@ -4,8 +4,8 @@ Joker can help you run command in background, view command list, stop it and see
 
 ### Download
 
--   Linux [joker](https://github.com/txthinking/joker/releases/download/v20190812/joker)
--   macOS [joker_darwin](https://github.com/txthinking/joker/releases/download/v20190812/joker_darwin)
+-   [joker](https://github.com/txthinking/joker/releases/download/v20190812/joker) for linux
+-   [joker_darwin](https://github.com/txthinking/joker/releases/download/v20190812/joker_darwin) for macOS
 
 ### Source
 
