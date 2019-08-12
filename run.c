@@ -29,7 +29,9 @@ void run(struct Cmd *r, sds *e)
 
     pid_t pid = fork();
     if(pid == 0){
+#ifdef __linux__
         prctl(PR_SET_PDEATHSIG, SIGHUP);
+#endif
         close(io[0]);
 
         char *l[(*r).argc+1];

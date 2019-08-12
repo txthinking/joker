@@ -20,7 +20,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#ifdef __linux__
 #include <sys/prctl.h>
+#endif
 #include <signal.h>
 #include "sds/sds.h"
 #include "vec/src/vec.h"
