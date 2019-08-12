@@ -1,10 +1,11 @@
 # Joker
 
-Joker can help you run command in background, view running command list and stop it.
+Joker can help you run command in background, view command list, stop it and see command log.
 
-### Install
+### Download
 
-Download [joker](https://github.com/txthinking/joker/releases/download/v20190812/joker)
+-   Linux [joker](https://github.com/txthinking/joker/releases/download/v20190812/joker)
+-   macOS [joker_darwin](https://github.com/txthinking/joker/releases/download/v20190812/joker_darwin)
 
 ### Source
 
