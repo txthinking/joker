@@ -72,6 +72,10 @@ void list_stop(struct Cmd *r, sds *e)
 
 void list(sds *e)
 {
+    int i = access("/tmp/joker.list", 0);
+    if(i != 0){
+        return;
+    }
     FILE *f = fopen("/tmp/joker.list", "r");
     if(!f) {
         *e = sdscpy(*e, "can not open /tmp/joker.list");
@@ -93,6 +97,10 @@ void list(sds *e)
 
 void list_all(sds *e)
 {
+    int i = access("/tmp/joker.list", 0);
+    if(i != 0){
+        return;
+    }
     FILE *f = fopen("/tmp/joker.list", "r");
     if(!f) {
         *e = sdscpy(*e, "can not open /tmp/joker.list");

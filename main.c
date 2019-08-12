@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
         return 0;
     }
     if(argc == 2 && strcmp(argv[1], "version") == 0){
-        printf("v20190812\n");
+        printf("v20190818\n");
         return 0;
     }
     if(argc == 2 && strcmp(argv[1], "list") == 0){
