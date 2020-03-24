@@ -26,12 +26,12 @@ void run(struct Cmd *r)
             exit(0);
         }
         if (pid2 == 0) {
-            pid_t pid = fork();
             int io[2];
             if (pipe(io) != 0){
                 perror("can't create io");
                 return;
             }
+            pid_t pid = fork();
             if(pid == 0){
 #ifdef __linux__
                 prctl(PR_SET_PDEATHSIG, SIGHUP);
@@ -63,11 +63,10 @@ void run(struct Cmd *r)
                 close(io[1]);
 
                 (*r).pid = pid;
-                sds e = sdsempty();
-                list_add(r, &e);
-                if(strcmp(e, "") != 0){
-                    perror(e);
-                    sds_free(e);
+                sds err = sdsempty();
+                list_add(r, &err);
+                if(strcmp(err, "") != 0){
+                    perror(err);
                     close(io[0]);
                     return;
                 }
@@ -77,14 +76,12 @@ void run(struct Cmd *r)
                 FILE *f = fopen(s, "w");
                 if(!f) {
                     perror("can not open log file");
-                    list_stop(r, &e);
-                    if(strcmp(e, "") != 0){
-                        perror(e);
-                        sds_free(e);
+                    list_stop(r, &err);
+                    if(strcmp(err, "") != 0){
+                        perror(err);
                         close(io[0]);
                         return;
                     }
-                    sds_free(e);
                     close(io[0]);
                     return;
                 }
@@ -103,16 +100,14 @@ void run(struct Cmd *r)
                     }
                     fflush(f);
                 }
-                list_stop(r, &e);
-                if(strcmp(e, "") != 0){
-                    perror(e);
-                    sds_free(e);
+                list_stop(r, &err);
+                if(strcmp(err, "") != 0){
+                    perror(err);
                     close(io[0]);
                     fclose(f);
                     chmod(s, 0666);
                     return;
                 }
-                sds_free(e);
                 close(io[0]);
                 fclose(f);
                 chmod(s, 0666);

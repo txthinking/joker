@@ -16,95 +16,95 @@
 
 void help()
 {
-	printf("\njoker: run command in background daemon\n\n");
-	printf("    <command>   run your command\n");
-	printf("    list [-a]   show running commands\n");
-	printf("    stop <pid>  stop a command\n");
-	printf("    log <pid>   view log of command\n");
-	printf("    clean       clean stopped commands\n");
-	printf("    help        show help\n");
-	printf("    version     show version\n\n");
+    printf("\njoker: run command in background daemon\n\n");
+    printf("    <command>   run your command\n");
+    printf("    list [-a]   show running commands\n");
+    printf("    stop <pid>  stop a command\n");
+    printf("    log <pid>   view log of command\n");
+    printf("    clean       clean stopped commands\n");
+    printf("    help        show help\n");
+    printf("    version     show version\n\n");
 }
 
 int main(int argc, char *argv[])
 {
-	if(argc == 1){
-		help();
-		return 0;
-	}
-	if(argc == 2 && strcmp(argv[1], "help") == 0){
-		help();
-		return 0;
-	}
-	if(argc == 2 && strcmp(argv[1], "version") == 0){
-		printf("v20200401\n");
-		return 0;
-	}
-	if(argc == 2 && strcmp(argv[1], "clean") == 0){
-		sds e = sdsempty();
-		list_clean(&e);
-		if(strcmp(e, "") != 0){
-			printf("%s\n", e);
-			sdsfree(e);
-			return 0;
-		}
-		sdsfree(e);
-		return 0;
-	}
-	if(argc == 2 && strcmp(argv[1], "list") == 0){
-		sds e = sdsempty();
-		list(&e);
-		if(strcmp(e, "") != 0){
-			printf("%s\n", e);
-			sdsfree(e);
-			return 0;
-		}
-		sdsfree(e);
-		return 0;
-	}
-	if(argc == 3 && strcmp(argv[1], "list") == 0){
-		sds e = sdsempty();
-		list_all(&e);
-		if(strcmp(e, "") != 0){
-			printf("%s\n", e);
-			sdsfree(e);
-			return 0;
-		}
-		sdsfree(e);
-		return 0;
-	}
-	if(argc == 3 && strcmp(argv[1], "stop") == 0){
-		int pid = atoi(argv[2]);
-		if(pid == 0){
-			return 0;
-		}
-		int i = kill(pid, SIGTERM);
-		if(i != 0){
-			printf("%s\n", "stop failed");
-			return 0;
-		}
-		return 0;
-	}
-	if(argc == 3 && strcmp(argv[1], "log") == 0){
-		int pid = atoi(argv[2]);
-		if(pid == 0){
-			return 0;
-		}
-		sds e = sdsempty();
-		log_cmd(pid, &e);
-		if(strcmp(e, "") != 0){
-			printf("%s\n", e);
-			sdsfree(e);
-			return 0;
-		}
-		sdsfree(e);
-		return 0;
-	}
+    if(argc == 1){
+        help();
+        return 0;
+    }
+    if(argc == 2 && strcmp(argv[1], "help") == 0){
+        help();
+        return 0;
+    }
+    if(argc == 2 && strcmp(argv[1], "version") == 0){
+        printf("v20200401\n");
+        return 0;
+    }
+    if(argc == 2 && strcmp(argv[1], "clean") == 0){
+        sds e = sdsempty();
+        list_clean(&e);
+        if(strcmp(e, "") != 0){
+            printf("%s\n", e);
+            sdsfree(e);
+            return 0;
+        }
+        sdsfree(e);
+        return 0;
+    }
+    if(argc == 2 && strcmp(argv[1], "list") == 0){
+        sds e = sdsempty();
+        list(&e);
+        if(strcmp(e, "") != 0){
+            printf("%s\n", e);
+            sdsfree(e);
+            return 0;
+        }
+        sdsfree(e);
+        return 0;
+    }
+    if(argc == 3 && strcmp(argv[1], "list") == 0){
+        sds e = sdsempty();
+        list_all(&e);
+        if(strcmp(e, "") != 0){
+            printf("%s\n", e);
+            sdsfree(e);
+            return 0;
+        }
+        sdsfree(e);
+        return 0;
+    }
+    if(argc == 3 && strcmp(argv[1], "stop") == 0){
+        int pid = atoi(argv[2]);
+        if(pid == 0){
+            return 0;
+        }
+        int i = kill(pid, SIGTERM);
+        if(i != 0){
+            printf("%s\n", "stop failed");
+            return 0;
+        }
+        return 0;
+    }
+    if(argc == 3 && strcmp(argv[1], "log") == 0){
+        int pid = atoi(argv[2]);
+        if(pid == 0){
+            return 0;
+        }
+        sds e = sdsempty();
+        log_cmd(pid, &e);
+        if(strcmp(e, "") != 0){
+            printf("%s\n", e);
+            sdsfree(e);
+            return 0;
+        }
+        sdsfree(e);
+        return 0;
+    }
 
-	struct Cmd r;
-	make_cmd(&r, argc, argv);
-	run(&r);
-	free_cmd(&r);
-	return 0;
+    struct Cmd r;
+    make_cmd(&r, argc, argv);
+    run(&r);
+    free_cmd(&r);
+    return 0;
 }
 
