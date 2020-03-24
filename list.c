@@ -28,6 +28,7 @@ void list_add(struct Cmd *r, sds *e)
         return;
     }
     fclose(f);
+    chmod("/tmp/joker.list", 0666);
 }
 
 void list_stop(struct Cmd *r, sds *e)
@@ -50,7 +51,7 @@ void list_stop(struct Cmd *r, sds *e)
         if(i!=0){
             s = sdscat(s, "[stopped]");
         }
-        s = sdscat(s, s1);
+        s = sdscat(s, s2);
     }
     fclose(f);
 
@@ -117,22 +118,43 @@ void list_all(sds *e)
     fclose(f);
 }
 
-void log_cmd(int pid, sds *e)
+void list_clean(sds *e)
 {
-    char s[16+1];
-    sprintf(s, "/tmp/joker.%d", pid);
-    FILE *f = fopen(s, "r");
-    if(!f) {
-        *e = sdscpy(*e, "can not open log");
+    int i = access("/tmp/joker.list", 0);
+    if(i != 0){
         return;
     }
+    FILE *f = fopen("/tmp/joker.list", "r");
+    if(!f) {
+        *e = sdscpy(*e, "can not open /tmp/joker.list");
+        return;
+    }
+    sds s = sdsempty();
     for(;;){
         char s1[1024];
         char *s2 = fgets(s1, 1024, f);
         if(s2 == NULL){
             break;
         }
-        printf("%s", s2);
+        int i = str_starts_with(s2, "[stopped]");
+        if(i==0){
+            s = sdscat(s, s2);
+        }
     }
+    fclose(f);
+
+    f = fopen("/tmp/joker.list", "w");
+    if(!f) {
+        *e = sdscpy(*e, "can not open /tmp/joker.list");
+        return;
+    }
+    i = fprintf(f, "%s", s);
+    if(i < 0) {
+        *e = sdscpy(*e, "can not write /tmp/joker.list");
+        sdsfree(s);
+        fclose(f);
+        return;
+    }
+    sdsfree(s);
     fclose(f);
 }

@@ -20,13 +20,14 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #ifdef __linux__
 #include <sys/prctl.h>
 #endif
 #include <signal.h>
 #include "sds/sds.h"
 #include "vec/src/vec.h"
-#include "joker.h"
 
 void help();
 
@@ -39,13 +40,14 @@ struct Cmd {
     vec_str_t argv;
 };
 
-void run(struct Cmd *r, sds *e);
+void run(struct Cmd *r);
 void make_cmd(struct Cmd *r, int argc, char *argv[]);
 void free_cmd(struct Cmd *r);
 void list_add(struct Cmd *r, sds *e);
 void list_stop(struct Cmd *r, sds *e);
 void list(sds *e);
 void list_all(sds *e);
+void list_clean(sds *e);
 void log_cmd(int pid, sds *e);
 
 #endif

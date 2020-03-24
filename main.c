@@ -16,11 +16,12 @@
 
 void help()
 {
-    printf("\njoker: run command in background\n\n");
+    printf("\njoker: run command in background daemon\n\n");
     printf("    <command>   run your command\n");
-    printf("    list [-a]   show running command list\n");
+    printf("    list [-a]   show running commands\n");
     printf("    stop <pid>  stop a command\n");
     printf("    log <pid>   view log of command\n");
+    printf("    clean       clean stopped commands\n");
     printf("    help        show help\n");
     printf("    version     show version\n\n");
 }
@@ -37,6 +38,17 @@ int main(int argc, char *argv[])
     }
     if(argc == 2 && strcmp(argv[1], "version") == 0){
         printf("v20190818\n");
+        return 0;
+    }
+    if(argc == 2 && strcmp(argv[1], "clean") == 0){
+        sds e = sdsempty();
+        list_clean(&e);
+        if(strcmp(e, "") != 0){
+            printf("%s\n", e);
+            sdsfree(e);
+            return 0;
+        }
+        sdsfree(e);
         return 0;
     }
     if(argc == 2 && strcmp(argv[1], "list") == 0){
@@ -91,17 +103,7 @@ int main(int argc, char *argv[])
 
     struct Cmd r;
     make_cmd(&r, argc, argv);
-
-    sds e = sdsempty();
-    run(&r, &e);
-    if(strcmp(e, "") != 0){
-        printf("%s\n", e);
-        sdsfree(e);
-        free_cmd(&r);
-        return 0;
-    }
-
-    sdsfree(e);
+    run(&r);
     free_cmd(&r);
     return 0;
 }
