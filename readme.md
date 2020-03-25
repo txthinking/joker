@@ -2,15 +2,18 @@
 
 Joker can turn binary program into daemon, such as golang program.
 
-### Download Binary
+### Install via [nami](https://github.com/txthinking/nami)
 
--   [joker](https://github.com/txthinking/joker/releases/download/v20190818/joker) for linux
--   [joker_darwin](https://github.com/txthinking/joker/releases/download/v20190818/joker_darwin) for macOS
+```
+$ nami install github.com/txthinking/joker
+```
 
-### Build from Source
+or build from Source
 
-    $ make
-    $ make install
+```
+$ make
+$ make install
+```
 
 ### Usage
 
@@ -31,7 +34,7 @@ Joker can turn binary program into daemon, such as golang program.
 ### Why
 
 There are many tools, such as systemd, supervisord, etc.
-But I need a simple, small, clean tool. Joker does **not** depend on systemd.
+But I need a simple, small, clean, no configuration tool. Joker does **not** depend on systemd.
 
 ## License
 
