@@ -1,6 +1,6 @@
 # Joker
 
-Joker can turn binary program into daemon, such as golang program.
+Joker can turn binary program into daemon, such as c, golang, rust and other languages program.
 
 ### Install via [nami](https://github.com/txthinking/nami)
 
@@ -12,7 +12,6 @@ or build from Source
 
 ```
 $ make
-$ make install
 ```
 
 ### Usage

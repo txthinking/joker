@@ -13,6 +13,3 @@ joker: $(OBJS)
 
 clean:
 	rm -f $(OBJS)
-
-install: joker
-	cp -f joker /usr/local/bin/
