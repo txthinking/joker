@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     }
 
     struct passwd *pw = getpwuid(getuid());
-    char *s = (char *) malloc(strlen(pw->pw_dir) + 7);
+    char *s = (char *) malloc(strlen(pw->pw_dir) + 7*100);
     sprintf(s, "%s/.joker", pw->pw_dir);
     struct stat st = {0};
     if (stat(s, &st) == -1) {
@@ -57,20 +57,17 @@ int main(int argc, char *argv[])
     if(argc == 3 && strcmp(argv[1], "stop") == 0){
         int pid = atoi(argv[2]);
         if(pid == 0){
-            list();
             return 0;
         }
         int i = kill(pid, SIGTERM);
         if(i != 0){
             printf("%s\n", "stop failed");
-            list();
             return 0;
         }
-        list();
         return 0;
     }
     if(argc == 3 && strcmp(argv[1], "log") == 0){
-        char *s = (char *) malloc(4+strlen(pw->pw_dir) + 8 + strlen(argv[2]));
+        char *s = (char *) malloc(4*100+strlen(pw->pw_dir) + 8*100 + strlen(argv[2]));
         sprintf(s, "cat %s/.joker/%s", pw->pw_dir, argv[2]);
         int i;
         i = system(s);
@@ -79,12 +76,5 @@ int main(int argc, char *argv[])
     }
 
     run(argc, argv);
-    list();
     return 0;
-}
-
-void list()
-{
-    system("sleep 1");
-    system("ps -x | grep \"`ps -e -o command | grep joker | grep -v grep | cut -d\" \" -f2-`\" | grep -v joker | grep -v grep");
 }

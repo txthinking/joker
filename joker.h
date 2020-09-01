@@ -29,7 +29,6 @@
 #include <pwd.h>
 
 void help();
-void list();
 void run(int argc, char *argv[]);
 
 #endif

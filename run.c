@@ -41,7 +41,7 @@ void run(int argc, char *argv[])
                 char *l[argc];
                 int i = 1;
                 for(;i<argc;i++){
-                    l[i-1] = (char *)malloc(strlen(argv[i]));
+                    l[i-1] = (char *)malloc(strlen(argv[i])+1);
                     l[i-1] = strcpy(l[i-1], argv[i]);
                 }
                 l[i-1] = NULL;
@@ -62,7 +62,7 @@ void run(int argc, char *argv[])
                 close(io[1]);
 
                 struct passwd *pw = getpwuid(getuid());
-                char *s = (char *) malloc(strlen(pw->pw_dir) + 8 + 7);
+                char *s = (char *) malloc(strlen(pw->pw_dir) + 8*100 + 7*100);
                 sprintf(s, "%s/.joker/%d", pw->pw_dir, pid);
                 FILE *f = fopen(s, "w");
                 if(!f) {
