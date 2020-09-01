@@ -86,10 +86,10 @@ void run(int argc, char *argv[])
                     }
                     fflush(f);
                 }
-                free(s);
                 close(io[0]);
                 fclose(f);
                 chmod(s, 0666);
+                free(s);
             }
         }
     }
