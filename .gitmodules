@@ -1,9 +1,0 @@
-[submodule "lib/str-starts-with.c"]
-	path = lib/str-starts-with.c
-	url = https://github.com/stephenmathieson/str-starts-with.c
-[submodule "lib/sds"]
-	path = lib/sds
-	url = https://github.com/antirez/sds
-[submodule "lib/vec"]
-	path = lib/vec
-	url = https://github.com/rxi/vec

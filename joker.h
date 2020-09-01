@@ -26,28 +26,9 @@
 #include <sys/prctl.h>
 #endif
 #include <signal.h>
-#include "sds/sds.h"
-#include "vec/src/vec.h"
+#include <pwd.h>
 
 void help();
-
-struct Cmd {
-    sds command;
-    sds path;
-    sds name;
-    pid_t pid;
-    int argc;
-    vec_str_t argv;
-};
-
-void run(struct Cmd *r);
-void make_cmd(struct Cmd *r, int argc, char *argv[]);
-void free_cmd(struct Cmd *r);
-void list_add(struct Cmd *r, sds *e);
-void list_stop(struct Cmd *r, sds *e);
-void list(sds *e);
-void list_all(sds *e);
-void list_clean(sds *e);
-void log_cmd(int pid, sds *e);
+void run(int argc, char *argv[]);
 
 #endif
