@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
     if(argc == 2 && strcmp(argv[1], "list") == 0){
         int i;
-        i = system("ps -x | grep \"`ps -e -o command | grep joker | grep -v grep | cut -d\" \" -f2-`\" | grep -v joker | grep -v grep");
+        i = system("s=`ps -e -o command | grep joker | grep -v grep | grep -v \"joker list\"`; if [ -n \"$s\" ]; then ps -x | grep \"`echo \"$s\" | cut -d' ' -f2-`\" | grep -v joker | grep -v grep; fi;");
         return i;
     }
     if(argc == 3 && strcmp(argv[1], "stop") == 0){
