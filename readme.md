@@ -30,6 +30,10 @@ $ make
 
     $ joker brook server -l :9999 -p password
 
+### Where are log files?
+
+All log files are stored in $HOME/.joker based on PID
+
 ### Why
 
 There are many tools, such as systemd, supervisord, etc.
