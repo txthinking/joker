@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
         return 0;
     }
     if(argc == 2 && (strcmp(argv[1], "version") == 0 || strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0)){
-        printf("v20200902\n");
+        printf("v20210214\n");
         return 0;
     }
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 
     if(argc == 2 && strcmp(argv[1], "list") == 0){
         int i;
-        i = system("s=`ps -e -o command | grep joker | grep -v grep | grep -v \"joker list\"`; if [ -n \"$s\" ]; then ps -x | grep \"`echo \"$s\" | cut -d' ' -f2-`\" | grep -v joker | grep -v grep; fi;");
+        i = system("s=`ps -e -o command | grep joker | grep -v grep | grep -v \"joker list\"`; if [ -n \"$s\" ]; then ps -x | grep -F \"`echo \"$s\" | cut -d' ' -f2-`\" | grep -v joker | grep -v grep; fi;");
         return i;
     }
     if(argc == 3 && strcmp(argv[1], "stop") == 0){
@@ -75,6 +75,13 @@ int main(int argc, char *argv[])
         return i;
     }
 
-    run(argc, argv);
+    pid_t pid = fork();
+    if (pid > 0) {
+        run(argc, argv);
+        waitpid(pid, NULL, 0);
+    }
+    if (pid == 0) {
+        execl("/bin/sh", "sh", "-c", "sleep 1 && echo && echo \"log file: ~/.joker/`cat /tmp/jokerlastid`\" && echo", NULL);
+    }
     return 0;
 }
