@@ -44,6 +44,10 @@ All log files are stored in $HOME/.joker based on PID
 There are many tools, such as systemd, supervisord, etc.
 But I need a simple, small, clean, no configuration tool. Joker does **not** depend on systemd.
 
+## Author
+
+A project by [txthinking](https://www.txthinking.com)
+
 ## License
 
 Licensed under The GPLv3 License
