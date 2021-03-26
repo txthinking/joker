@@ -44,6 +44,10 @@ $ make
 已经有几个类似软件, 比如 systemd, supervisord, 等.
 但是我需要一个简单, 小巧, 干净, 无需配置的软件. 所以写了joker. joker不依赖systemd.
 
+## 作者
+
+A project by [txthinking](https://www.txthinking.com)
+
 ## 开源协议
 
 基于 GPLv3 协议开源
