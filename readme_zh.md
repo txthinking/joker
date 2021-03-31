@@ -44,6 +44,10 @@ $ make
 已经有几个类似软件, 比如 systemd, supervisord, 等.
 但是我需要一个简单, 小巧, 干净, 无需配置的软件. 所以写了joker. joker不依赖systemd.
 
+### 开机自动启动
+
+你可能喜欢 [jinbe](https://github.com/txthinking/jinbe)
+
 ## 作者
 
 A project by [txthinking](https://www.txthinking.com)
