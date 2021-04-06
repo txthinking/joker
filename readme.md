@@ -46,7 +46,7 @@ But I need a simple, small, clean, no configuration tool. Joker does **not** dep
 
 ### Auto start command at boot
 
-You may like [jinbe](https://github.com/txthinking/jinbe)
+You may like [txthinking/jinbe](https://github.com/txthinking/jinbe) or [brook-community/jinbe](https://github.com/brook-community/jinbe)
 
 ## Author
 
