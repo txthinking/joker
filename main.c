@@ -54,6 +54,23 @@ int main(int argc, char *argv[])
         i = system("s=`ps -e -o command | grep joker | grep -v grep | grep -v \"joker list\"`; if [ -n \"$s\" ]; then ps -x | grep -F \"`echo \"$s\" | cut -d' ' -f2-`\" | grep -v joker | grep -v grep; fi;");
         return i;
     }
+    if(argc == 2 && strcmp(argv[1], "stop") == 0){
+        int i;
+        int pid = 0;
+        i = system("s=`ps -e -o command | grep joker | grep -v grep | grep -v \"joker list\"`; if [ -n \"$s\" ]; then ps -x | grep -F \"`echo \"$s\" | cut -d' ' -f2-`\" | grep -v joker | grep -v grep; fi;");
+        if (i != 0){
+            printf("error: joker is not running!");
+            return i;
+        }
+        printf("\nPid of the process you want to terminate -> ");
+        scanf("%d", &pid);
+        i = kill(pid, SIGTERM);
+        if(i != 0){
+            printf("stop failed\n");
+            return i;
+        }
+        return 0;
+    }
     if(argc == 3 && strcmp(argv[1], "stop") == 0){
         int pid = atoi(argv[2]);
         if(pid == 0){
