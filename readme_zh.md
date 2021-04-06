@@ -46,7 +46,7 @@ $ make
 
 ### 开机自动启动
 
-你可能喜欢 [jinbe](https://github.com/txthinking/jinbe)
+你可能喜欢 [txthinking/jinbe](https://github.com/txthinking/jinbe) 或 [brook-community/jinbe](https://github.com/brook-community/jinbe)
 
 ## 作者
 
