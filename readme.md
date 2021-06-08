@@ -7,6 +7,8 @@
 
 Joker can turn process into daemon.
 
+❤️ A project by [txthinking.com](https://www.txthinking.com)
+
 ### Install via [nami](https://github.com/txthinking/nami)
 
 ```
@@ -47,10 +49,6 @@ But I need a simple, small, clean, no configuration tool. Joker does **not** dep
 ### Auto start command at boot
 
 You may like [txthinking/jinbe](https://github.com/txthinking/jinbe) or [brook-community/jinbe](https://github.com/brook-community/jinbe)
-
-## Author
-
-A project by [txthinking](https://www.txthinking.com)
 
 ## License
 
