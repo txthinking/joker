@@ -7,6 +7,8 @@
 
 Joker可以将进程变成守护进程.
 
+❤️ A project by [txthinking.com](https://www.txthinking.com)
+
 ### 用 [nami](https://github.com/txthinking/nami) 安装
 
 ```
@@ -47,10 +49,6 @@ $ make
 ### 开机自动启动
 
 你可能喜欢 [txthinking/jinbe](https://github.com/txthinking/jinbe) 或 [brook-community/jinbe](https://github.com/brook-community/jinbe)
-
-## 作者
-
-A project by [txthinking](https://www.txthinking.com)
 
 ## 开源协议
 
