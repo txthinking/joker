@@ -27,8 +27,9 @@ $ make
 
     	<command>   run your command
     	list        show running commands
-    	stop <pid>  stop a command
+    	stop <pid>  stop a command by SIGTERM
     	log <pid>   view log of command
+        last        view pid of last command
 
     	help        show help
     	version     show version

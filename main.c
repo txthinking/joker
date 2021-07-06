@@ -19,8 +19,9 @@ void help()
     printf("\njoker: run command as daemon\n\n");
     printf("    <command>   run your command\n");
     printf("    list        show running commands\n");
-    printf("    stop <pid>  stop a command\n");
-    printf("    log <pid>   view log of command\n\n");
+    printf("    stop <pid>  stop a command by SIGTERM\n");
+    printf("    log <pid>   view log of command\n");
+    printf("    last        view pid of last command\n\n");
     printf("    help        show help\n");
     printf("    version     show version\n\n");
 }
@@ -50,8 +51,7 @@ int main(int argc, char *argv[])
     free(s);
 
     if(argc == 2 && strcmp(argv[1], "list") == 0){
-        int i;
-        i = system("s=`ps -e -o command | grep joker | grep -v grep | grep -v \"joker list\"`; if [ -n \"$s\" ]; then ps -x | grep -F \"`echo \"$s\" | cut -d' ' -f2-`\" | grep -v joker | grep -v grep; fi;");
+        int i = system("s=`ps -e -o command | grep joker | grep -v grep | grep -v \"joker list\"`; if [ -n \"$s\" ]; then ps -x | grep -F \"`echo \"$s\" | cut -d' ' -f2-`\" | grep -v joker | grep -v grep; fi;");
         return i;
     }
     if(argc == 3 && strcmp(argv[1], "stop") == 0){
@@ -62,26 +62,24 @@ int main(int argc, char *argv[])
         int i = kill(pid, SIGTERM);
         if(i != 0){
             printf("%s\n", "stop failed");
-            return 0;
         }
-        return 0;
+        return i;
     }
     if(argc == 3 && strcmp(argv[1], "log") == 0){
         char *s = (char *) malloc(4*100+strlen(pw->pw_dir) + 8*100 + strlen(argv[2]));
-        sprintf(s, "cat %s/.joker/%s", pw->pw_dir, argv[2]);
-        int i;
-        i = system(s);
+        sprintf(s, "cat %s/.joker/%s.*", pw->pw_dir, argv[2]);
+        int i = system(s);
+        free(s);
+        return i;
+    }
+    if(argc == 2 && strcmp(argv[1], "last") == 0){
+        char *s = (char *) malloc(strlen(pw->pw_dir) + 18*100);
+        sprintf(s, "cat %s/.joker/lastid", pw->pw_dir);
+        int i = system(s);
         free(s);
         return i;
     }
 
-    pid_t pid = fork();
-    if (pid > 0) {
-        run(argc, argv);
-        waitpid(pid, NULL, 0);
-    }
-    if (pid == 0) {
-        execl("/bin/sh", "sh", "-c", "sleep 1 && echo && echo \"log file: ~/.joker/`cat /tmp/jokerlastid`\" && echo", NULL);
-    }
+    run(argc, argv);
     return 0;
 }

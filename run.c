@@ -61,14 +61,21 @@ void run(int argc, char *argv[])
                 // TODO ignore kill-like signal
                 close(io[1]);
 
+                // TODO remove
                 char *s0 = (char *) malloc(24*100 + 7*100);
                 sprintf(s0, "echo %d > /tmp/jokerlastid", pid);
                 system(s0);
                 free(s0);
 
                 struct passwd *pw = getpwuid(getuid());
-                char *s = (char *) malloc(strlen(pw->pw_dir) + 8*100 + 7*100);
-                sprintf(s, "%s/.joker/%d", pw->pw_dir, pid);
+
+                char *s1 = (char *) malloc(strlen(pw->pw_dir) + 22*100 + 7*100);
+                sprintf(s1, "echo %d > %s/.joker/lastid", pid, pw->pw_dir);
+                system(s1);
+                free(s1);
+
+                char *s = (char *) malloc(strlen(pw->pw_dir) + 9*100 + 7*100+ strlen(argv[1]));
+                sprintf(s, "%s/.joker/%d.%s", pw->pw_dir, pid, argv[1]);
                 FILE *f = fopen(s, "w");
                 if(!f) {
                     perror("can not open log file");
