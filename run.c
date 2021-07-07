@@ -75,7 +75,7 @@ void run(int argc, char *argv[])
                 free(s1);
 
                 char *s = (char *) malloc(strlen(pw->pw_dir) + 9*100 + 7*100+ strlen(argv[1]));
-                sprintf(s, "%s/.joker/%d.%s", pw->pw_dir, pid, argv[1]);
+                sprintf(s, "%s/.joker/%d.%s", pw->pw_dir, pid, basename(argv[1]));
                 FILE *f = fopen(s, "w");
                 if(!f) {
                     perror("can not open log file");
