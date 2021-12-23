@@ -12,7 +12,7 @@ Joker可以将进程变成守护进程.
 ### 用 [nami](https://github.com/txthinking/nami) 安装
 
 ```
-$ nami install github.com/txthinking/joker
+$ nami install joker
 ```
 
 或者从源码编译
