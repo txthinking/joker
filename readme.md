@@ -12,7 +12,7 @@ Joker can turn process into daemon.
 ### Install via [nami](https://github.com/txthinking/nami)
 
 ```
-$ nami install github.com/txthinking/joker
+$ nami install joker
 ```
 
 or build from Source
