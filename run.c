@@ -61,12 +61,6 @@ void run(int argc, char *argv[])
                 // TODO ignore kill-like signal
                 close(io[1]);
 
-                // TODO remove
-                char *s0 = (char *) malloc(24*100 + 7*100);
-                sprintf(s0, "echo %d > /tmp/jokerlastid", pid);
-                system(s0);
-                free(s0);
-
                 struct passwd *pw = getpwuid(getuid());
 
                 char *s1 = (char *) malloc(strlen(pw->pw_dir) + 22*100 + 7*100);
