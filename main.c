@@ -37,7 +37,7 @@ int main(int argc, char **argv)
         return 0;
     }
     if(argc == 2 && (strcmp(argv[1], "version") == 0 || strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0)){
-        printf("v20221118\n");
+        printf("v20221119\n");
         return 0;
     }
 
@@ -53,13 +53,13 @@ int main(int argc, char **argv)
     if(argc == 2 && strcmp(argv[1], "list") == 0){
         char **lp = NULL;
         int li = 0;
-        char b[100*10000];
+        char b[100*2000];
         FILE *f;
-        if ((f = popen("ps -x -o pid,tty,stat,time,command", "r")) == NULL) {
+        if ((f = popen("ps -x -ww -o pid,tty,stat,time,command", "r")) == NULL) {
             printf("popen ps failed!\n");
             return -1;
         }
-        while (fgets(b, 100*10000, f) != NULL) {
+        while (fgets(b, 100*2000, f) != NULL) {
             li++;
             lp = realloc(lp, sizeof(char*) * li);
             if(lp == NULL){
