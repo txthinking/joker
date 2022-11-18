@@ -37,7 +37,7 @@ int main(int argc, char **argv)
         return 0;
     }
     if(argc == 2 && (strcmp(argv[1], "version") == 0 || strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0)){
-        printf("v20221119\n");
+        printf("v20221120\n");
         return 0;
     }
 
@@ -157,7 +157,7 @@ int main(int argc, char **argv)
     }
     if(argc == 3 && strcmp(argv[1], "restart") == 0){
         char *s = (char *)malloc(100);
-        sprintf(s, "joker list | grep %s | cut -w -f4- > /tmp/jokerrestart", argv[2]);
+        sprintf(s, "joker list | grep %s | cut -w -f5- > /tmp/jokerrestart", argv[2]);
         int i = system(s);
         if(i != 0){
             printf("%s\n", "failed");
