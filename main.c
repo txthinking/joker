@@ -37,7 +37,7 @@ int main(int argc, char **argv)
         return 0;
     }
     if(argc == 2 && (strcmp(argv[1], "version") == 0 || strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0)){
-        printf("v20221120\n");
+        printf("v20221121\n");
         return 0;
     }
 
@@ -156,26 +156,14 @@ int main(int argc, char **argv)
         return 0;
     }
     if(argc == 3 && strcmp(argv[1], "restart") == 0){
-        char *s = (char *)malloc(100);
-        sprintf(s, "joker list | grep %s | cut -w -f5- > /tmp/jokerrestart", argv[2]);
+        char *s = (char *)malloc(1000);
+        sprintf(s, "joker list | awk '{if($1==\"%s\"){id=$1;$1=$2=$3=$4=\"\";system(\"kill \"id);system(\"sleep 2\");system(\"joker \"$0)}}'", argv[2]);
         int i = system(s);
         if(i != 0){
             printf("%s\n", "failed");
             return i;
         }
-        int pid = atoi(argv[2]);
-        if(pid == 0){
-            printf("%s\n", "invalid id");
-            return 1;
-        }
-        i = kill(pid, SIGTERM);
-        if(i != 0){
-            printf("%s\n", "stop failed");
-            return i;
-        }
-        sleep(2);
-        sprintf(s, "joker `cat /tmp/jokerrestart`");
-        return system(s);
+        return 0;
     }
     if(argc == 3 && strcmp(argv[1], "stop") == 0){
         int pid = atoi(argv[2]);
@@ -185,8 +173,9 @@ int main(int argc, char **argv)
         int i = kill(pid, SIGTERM);
         if(i != 0){
             printf("%s\n", "stop failed");
+            return i;
         }
-        return i;
+        return 0;
     }
     if(argc == 3 && strcmp(argv[1], "log") == 0){
         char *s = (char *) malloc(4*100+strlen(pw->pw_dir) + 8*100 + strlen(argv[2]));
