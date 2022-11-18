@@ -71,6 +71,7 @@ int main(int argc, char **argv)
         }
         if (pclose(f)) {
             printf("pclose failed\n");
+            // TODO free sth if failed
             return -1;
         }
 
@@ -161,8 +162,10 @@ int main(int argc, char **argv)
         int i = system(s);
         if(i != 0){
             printf("%s\n", "failed");
+            free(s);
             return i;
         }
+        free(s);
         return 0;
     }
     if(argc == 3 && strcmp(argv[1], "stop") == 0){
