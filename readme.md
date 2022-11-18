@@ -2,10 +2,9 @@
 
 [中文](readme_zh.md)
 
-[🗣 News](https://t.me/txthinking_news)
-[💬 Chat](https://join.txthinking.com)
-[🩸 Youtube](https://www.youtube.com/txthinking) 
-[❤️ Sponsor](https://github.com/sponsors/txthinking)
+[🗣 News](https://t.me/s/txthinking_news)
+[💬 Chat](https://t.me/brookgroup)
+[🩸 Youtube](https://www.youtube.com/txthinking)
 
 Joker can turn process into daemon.
 
@@ -14,13 +13,13 @@ Joker can turn process into daemon.
 ### Install via [nami](https://github.com/txthinking/nami)
 
 ```
-$ nami install joker
+nami install joker
 ```
 
 or build from Source
 
 ```
-$ make
+make
 ```
 
 ### Usage
@@ -38,7 +37,7 @@ $ make
 
 ### Example
 
-    $ joker brook server -l :9999 -p password
+    joker brook server -l :9999 -p password
 
 ### Where are log files?
 

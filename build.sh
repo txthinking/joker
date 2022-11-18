@@ -12,6 +12,10 @@ make
 mv joker _/joker_linux_amd64
 
 make clean
+docker run -it --rm -v $(pwd):/workdir -e CROSS_TRIPLE=aarch64-linux-gnu multiarch/crossbuild make
+mv joker _/joker_linux_arm64
+
+make clean
 docker run -it --rm -v $(pwd):/workdir -e CROSS_TRIPLE=x86_64-apple-darwin multiarch/crossbuild make
 mv joker _/joker_darwin_amd64
 

@@ -26,7 +26,7 @@ void help()
     printf("    version     show version\n\n");
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
     if(argc == 1){
         help();
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
         return 0;
     }
     if(argc == 2 && (strcmp(argv[1], "version") == 0 || strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0)){
-        printf("v20220126\n");
+        printf("v20221118\n");
         return 0;
     }
 
@@ -51,8 +51,131 @@ int main(int argc, char *argv[])
     free(s);
 
     if(argc == 2 && strcmp(argv[1], "list") == 0){
-        int i = system("s=`ps -e -o command | grep joker | grep -v grep | grep -v \"joker list\"`; if [ -n \"$s\" ]; then ps -x | grep -F \"`echo \"$s\" | cut -d' ' -f2-`\" | grep -v joker | grep -v grep; fi;");
-        return i;
+        char **lp = NULL;
+        int li = 0;
+        char b[100*10000];
+        FILE *f;
+        if ((f = popen("ps -x", "r")) == NULL) {
+            printf("popen failed!\n");
+            return -1;
+        }
+        while (fgets(b, 100*10000, f) != NULL) {
+            li++;
+            lp = realloc(lp, sizeof(char*) * li);
+            if(lp == NULL){
+                printf("realloc failed\n");
+                return -1;
+            }
+            lp[li-1] = (char *) malloc(strlen(b) + 1);
+            memcpy(lp[li-1], b, strlen(b) + 1);
+        }
+        if (pclose(f)) {
+            printf("pclose failed\n");
+            return -1;
+        }
+
+        char **cp = NULL;
+        char **jp = NULL;
+        int ji = 0;
+        for(int i=0; i<li; i++){
+            if(i==0){
+                continue;
+            }
+            char *cstep = NULL;
+            char *s0 = strdup(lp[i]);
+            char *s = s0;
+            int wi = 0;
+            int got = 0;
+            char *jstep = NULL;
+            char *p = NULL;
+            for(p=strsep(&s, " \t");p!=NULL;p=strsep(&s, " \t")){
+                if(strcmp(p, "") == 0){
+                    continue;
+                }
+                wi++;
+                if(wi == 4){
+                    cp = realloc(cp, sizeof(char*) * (i+1));
+                    if(cp == NULL){
+                        printf("realloc failed\n");
+                        return -1;
+                    }
+                    cp[i] = (char *) malloc(strlen(lp[i])+1);
+                    cstep = cp[i];
+                }
+                if(wi >= 4){
+                    memcpy(cstep, p, strlen(p));
+                    cstep += strlen(p);
+                }
+                if(wi == 4 && strlen(p)>=5 && strcmp(p+strlen(p)-5, "joker") == 0){
+                    got = 1;
+                    ji++;
+                    jp = realloc(jp, sizeof(char*) * ji);
+                    if(jp == NULL){
+                        printf("realloc failed\n");
+                        return -1;
+                    }
+                    jp[ji-1] = (char *) malloc(strlen(lp[i])+1);
+                    jstep = jp[ji-1];
+                    continue;
+                }
+                if(got == 1){
+                    memcpy(jstep, p, strlen(p));
+                    jstep += strlen(p);
+                }
+            }
+            cstep++;
+            *cstep = '\0';
+            if(got == 1){
+                jstep++;
+                *jstep = '\0';
+            }
+            free(s0);
+        }
+
+        for(int j=0; j<ji; j++){
+            for(int i=1; i<li; i++){
+                if(strcmp(cp[i], jp[j]) == 0){
+                    printf("%s", lp[i]);
+                }
+            }
+        }
+
+        for(int j=0; j<ji; j++){
+            free(jp[j]);
+        }
+        free(jp);
+        for(int i=1; i<li; i++){
+            free(cp[i]);
+        }
+        free(cp);
+        for(int i=0; i<li; i++){
+            free(lp[i]);
+        }
+        free(lp);
+
+        return 0;
+    }
+    if(argc == 3 && strcmp(argv[1], "restart") == 0){
+        char *s = (char *)malloc(100);
+        sprintf(s, "joker list | grep %s | cut -w -f4- > /tmp/jokerrestart", argv[2]);
+        int i = system(s);
+        if(i != 0){
+            printf("%s\n", "failed");
+            return i;
+        }
+        int pid = atoi(argv[2]);
+        if(pid == 0){
+            printf("%s\n", "invalid id");
+            return 1;
+        }
+        int i = kill(pid, SIGTERM);
+        if(i != 0){
+            printf("%s\n", "stop failed");
+            return i;
+        }
+        sleep(2);
+        sprintf(s, "joker `cat /tmp/jokerrestart`");
+        return system(s);
     }
     if(argc == 3 && strcmp(argv[1], "stop") == 0){
         int pid = atoi(argv[2]);

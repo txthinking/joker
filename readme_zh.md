@@ -2,10 +2,9 @@
 
 [English](readme.md)
 
-[🗣 News](https://t.me/txthinking_news)
-[💬 Chat](https://join.txthinking.com)
-[🩸 Youtube](https://www.youtube.com/txthinking) 
-[❤️ Sponsor](https://github.com/sponsors/txthinking)
+[🗣 News](https://t.me/s/txthinking_news)
+[💬 Chat](https://t.me/brookgroup)
+[🩸 Youtube](https://www.youtube.com/txthinking)
 
 Joker可以将进程变成守护进程.
 
@@ -14,13 +13,13 @@ Joker可以将进程变成守护进程.
 ### 用 [nami](https://github.com/txthinking/nami) 安装
 
 ```
-$ nami install joker
+nami install joker
 ```
 
 或者从源码编译
 
 ```
-$ make
+make
 ```
 
 ### 使用
@@ -38,7 +37,7 @@ $ make
 
 ### 举例
 
-    $ joker brook server -l :9999 -p password
+    joker brook server -l :9999 -p password
 
 ### 日志文件在哪里?
 

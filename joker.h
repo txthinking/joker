@@ -30,6 +30,6 @@
 #include <pwd.h>
 
 void help();
-void run(int argc, char *argv[]);
+void run(int argc, char **argv);
 
 #endif

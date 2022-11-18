@@ -14,7 +14,7 @@
 
 #include "joker.h"
 
-void run(int argc, char *argv[])
+void run(int argc, char **argv)
 {
     pid_t pid1 = fork();
     if (pid1 > 0) {
