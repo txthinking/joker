@@ -168,7 +168,7 @@ int main(int argc, char **argv)
             printf("%s\n", "invalid id");
             return 1;
         }
-        int i = kill(pid, SIGTERM);
+        i = kill(pid, SIGTERM);
         if(i != 0){
             printf("%s\n", "stop failed");
             return i;
