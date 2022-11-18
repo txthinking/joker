@@ -55,8 +55,8 @@ int main(int argc, char **argv)
         int li = 0;
         char b[100*10000];
         FILE *f;
-        if ((f = popen("ps -x", "r")) == NULL) {
-            printf("popen failed!\n");
+        if ((f = popen("ps -x -o pid,tty,stat,time,command", "r")) == NULL) {
+            printf("popen ps failed!\n");
             return -1;
         }
         while (fgets(b, 100*10000, f) != NULL) {
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
                     continue;
                 }
                 wi++;
-                if(wi == 4){
+                if(wi == 5){
                     cp = realloc(cp, sizeof(char*) * (i+1));
                     if(cp == NULL){
                         printf("realloc failed\n");
@@ -102,11 +102,11 @@ int main(int argc, char **argv)
                     cp[i] = (char *) malloc(strlen(lp[i])+1);
                     cstep = cp[i];
                 }
-                if(wi >= 4){
+                if(wi >= 5){
                     memcpy(cstep, p, strlen(p));
                     cstep += strlen(p);
                 }
-                if(wi == 4 && strlen(p)>=5 && strcmp(p+strlen(p)-5, "joker") == 0){
+                if(wi == 5 && strlen(p)>=5 && strcmp(p+strlen(p)-5, "joker") == 0){
                     got = 1;
                     ji++;
                     jp = realloc(jp, sizeof(char*) * ji);
