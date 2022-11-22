@@ -131,7 +131,7 @@ int main(int argc, char **argv)
             for(int i=0; i<li; i++){
                 if(strcmp(cp[i], jp[j]) == 0){
                     printf("%s", lp[i]);
-                    break;
+                    cp[i][0] = '\0';
                 }
             }
         }
