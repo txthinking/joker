@@ -37,7 +37,7 @@ int main(int argc, char **argv)
         return 0;
     }
     if(argc == 2 && (strcmp(argv[1], "version") == 0 || strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0)){
-        printf("v20221121\n");
+        printf("v20221122\n");
         return 0;
     }
 
@@ -79,75 +79,64 @@ int main(int argc, char **argv)
         char **jp = NULL;
         int ji = 0;
         for(int i=0; i<li; i++){
-            if(i==0){
-                continue;
-            }
-            char *cstep = NULL;
+            char *cstep = lp[i];
+            char *jstep = lp[i];
             char *s0 = strdup(lp[i]);
             char *s = s0;
             int wi = 0;
-            int got = 0;
-            char *jstep = NULL;
-            char *p = NULL;
-            for(p=strsep(&s, " \t");p!=NULL;p=strsep(&s, " \t")){
-                if(strcmp(p, "") == 0){
+            char *word = NULL;
+            int cdone = 0;
+            int jdone = 0;
+            int joker = 0;
+            for(word=strsep(&s, " \t");word!=NULL;word=strsep(&s, " \t")){
+                if(cdone == 0){
+                    cstep = cstep + strlen(word)+1;
+                }
+                if(jdone == 0){
+                    jstep = jstep + strlen(word)+1;
+                }
+                if(strcmp(word, "") == 0){
                     continue;
                 }
                 wi++;
                 if(wi == 5){
-                    cp = realloc(cp, sizeof(char*) * (i+1));
-                    if(cp == NULL){
-                        printf("realloc failed\n");
-                        return -1;
-                    }
-                    cp[i] = (char *) malloc(strlen(lp[i])+1);
-                    cstep = cp[i];
+                    cstep = cstep - strlen(word)-1;
+                    cdone = 1;
                 }
-                if(wi >= 5){
-                    memcpy(cstep, p, strlen(p));
-                    cstep += strlen(p);
+                if(wi == 5 && strlen(word)>=5 && strcmp(word+strlen(word)-5, "joker") == 0){
+                    joker = 1;
                 }
-                if(wi == 5 && strlen(p)>=5 && strcmp(p+strlen(p)-5, "joker") == 0){
-                    got = 1;
+                if(wi == 6 && joker == 1){
+                    jstep = jstep - strlen(word)-1;
+                    jdone = 1;
                     ji++;
                     jp = realloc(jp, sizeof(char*) * ji);
                     if(jp == NULL){
                         printf("realloc failed\n");
                         return -1;
                     }
-                    jp[ji-1] = (char *) malloc(strlen(lp[i])+1);
-                    jstep = jp[ji-1];
-                    continue;
-                }
-                if(got == 1){
-                    memcpy(jstep, p, strlen(p));
-                    jstep += strlen(p);
+                    jp[ji-1] = jstep;
                 }
             }
-            cstep++;
-            *cstep = '\0';
-            if(got == 1){
-                jstep++;
-                *jstep = '\0';
+            cp = realloc(cp, sizeof(char*) * (i+1));
+            if(cp == NULL){
+                printf("realloc failed\n");
+                return -1;
             }
+            cp[i] = cstep;
             free(s0);
         }
 
         for(int j=0; j<ji; j++){
-            for(int i=1; i<li; i++){
+            for(int i=0; i<li; i++){
                 if(strcmp(cp[i], jp[j]) == 0){
                     printf("%s", lp[i]);
+                    break;
                 }
             }
         }
 
-        for(int j=0; j<ji; j++){
-            free(jp[j]);
-        }
         free(jp);
-        for(int i=1; i<li; i++){
-            free(cp[i]);
-        }
         free(cp);
         for(int i=0; i<li; i++){
             free(lp[i]);
