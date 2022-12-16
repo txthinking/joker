@@ -26,14 +26,14 @@ make
 
     joker: run command as daemon
 
-    	<command>   run your command
-    	list        show running commands
-    	stop <pid>  stop a command by SIGTERM
-    	log <pid>   view log of command
-    	last        view pid of last command
-
-    	help        show help
-    	version     show version
+        <command>     run your command
+        last          view pid of last command
+        list          show running commands
+        log <pid>     view log of command
+        stop <pid>    stop a command by SIGTERM
+        restart <pid> stop and run again
+        help          show help
+        version       show version
 
 ### Example
 
