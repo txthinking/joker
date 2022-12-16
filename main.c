@@ -17,13 +17,14 @@
 void help()
 {
     printf("\njoker: run command as daemon\n\n");
-    printf("    <command>   run your command\n");
-    printf("    list        show running commands\n");
-    printf("    stop <pid>  stop a command by SIGTERM\n");
-    printf("    log <pid>   view log of command\n");
-    printf("    last        view pid of last command\n\n");
-    printf("    help        show help\n");
-    printf("    version     show version\n\n");
+    printf("    <command>     run your command\n");
+    printf("    last          view pid of last command\n\n");
+    printf("    list          show running commands\n");
+    printf("    stop <pid>    stop a command by SIGTERM\n");
+    printf("    log <pid>     view log of command\n");
+    printf("    restart <pid> stop and run again\n");
+    printf("    help          show help\n");
+    printf("    version       show version\n\n");
 }
 
 int main(int argc, char **argv)
@@ -37,7 +38,7 @@ int main(int argc, char **argv)
         return 0;
     }
     if(argc == 2 && (strcmp(argv[1], "version") == 0 || strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-v") == 0)){
-        printf("v20221122\n");
+        printf("v20230101\n");
         return 0;
     }
 
@@ -147,7 +148,7 @@ int main(int argc, char **argv)
     }
     if(argc == 3 && strcmp(argv[1], "restart") == 0){
         char *s = (char *)malloc(1000);
-        sprintf(s, "joker list | awk '{if($1==\"%s\"){id=$1;$1=$2=$3=$4=\"\";system(\"kill \"id);system(\"sleep 2\");system(\"joker \"$0)}}'", argv[2]);
+        sprintf(s, "joker list | awk '{if($1==\"%s\"){for(i=2;i<=NF;i++){$i=\"'\\''\"$i\"'\\''\";}id=$1;$1=$2=$3=$4=\"\";system(\"kill \"id);system(\"sleep 2\");system(\"joker \"$0)}}'", argv[2]);
         int i = system(s);
         if(i != 0){
             printf("%s\n", "failed");
