@@ -18,10 +18,10 @@ void help()
 {
     printf("\njoker: run command as daemon\n\n");
     printf("    <command>     run your command\n");
-    printf("    last          view pid of last command\n\n");
+    printf("    last          view pid of last command\n");
     printf("    list          show running commands\n");
-    printf("    stop <pid>    stop a command by SIGTERM\n");
     printf("    log <pid>     view log of command\n");
+    printf("    stop <pid>    stop a command by SIGTERM\n");
     printf("    restart <pid> stop and run again\n");
     printf("    help          show help\n");
     printf("    version       show version\n\n");
