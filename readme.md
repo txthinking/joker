@@ -2,10 +2,6 @@
 
 [中文](readme_zh.md)
 
-[🗣 News](https://t.me/s/txthinking_news)
-[💬 Chat](https://t.me/brookgroup)
-[🩸 Youtube](https://www.youtube.com/txthinking)
-
 Joker can turn process into daemon.
 
 ❤️ A project by [txthinking.com](https://www.txthinking.com)

@@ -2,10 +2,6 @@
 
 [English](readme.md)
 
-[🗣 News](https://t.me/s/txthinking_news)
-[💬 Chat](https://t.me/brookgroup)
-[🩸 Youtube](https://www.youtube.com/txthinking)
-
 Joker可以将进程变成守护进程.
 
 ❤️ A project by [txthinking.com](https://www.txthinking.com)
