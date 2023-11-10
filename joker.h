@@ -15,20 +15,21 @@
 #ifndef __JOKER_H
 #define __JOKER_H
 
+#include <fcntl.h>
+#include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libgen.h>
-#include <unistd.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include <unistd.h>
 #ifdef __linux__
 #include <sys/prctl.h>
 #endif
-#include <signal.h>
 #include <pwd.h>
+#include <signal.h>
+#include <syslog.h>
 
 void help();
 void run(int argc, char **argv);
