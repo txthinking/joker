@@ -1,7 +1,5 @@
 # Joker
 
-[中文](readme_zh.md)
-
 Joker can turn process into daemon.
 
 ❤️ A project by [txthinking.com](https://www.txthinking.com)
