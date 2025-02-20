@@ -1,6 +1,6 @@
-# Joker
+# joker
 
-Joker can turn process into daemon.
+joker can turn process into daemon.
 
 ❤️ A project by [txthinking.com](https://www.txthinking.com)
 
@@ -25,7 +25,6 @@ make
         list          show running commands
         log <pid>     view log of command
         stop <pid>    stop a command by SIGTERM
-        restart <pid> stop and run again
         help          show help
         version       show version
 
@@ -40,11 +39,11 @@ All log files are stored in $HOME/.joker based on PID
 ### Why
 
 There are many tools, such as systemd, supervisord, etc.
-But I need a simple, small, clean, no configuration tool. Joker does **not** depend on systemd.
+But I need a simple, small, clean, no configuration tool. joker does **not** depend on systemd.
 
 ### Auto start command at boot
 
-You may like [txthinking/jinbe](https://github.com/txthinking/jinbe)
+You may like [txthinking/z](https://github.com/txthinking/z)
 
 ## License
 
